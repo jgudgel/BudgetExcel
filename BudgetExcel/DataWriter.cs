@@ -17,7 +17,7 @@ namespace BudgetExcel
         Excel.Worksheet xlWorkSheet;
         object misValue;
         int _RowIndex;
-        string _filePath = " ";
+        //string _filePath = " ";
         string _currentDate = "";
         string _myDocPath = "";
 
@@ -64,7 +64,7 @@ namespace BudgetExcel
             misValue = System.Reflection.Missing.Value;
             xlWorkBook = xlApp.Workbooks.Add(misValue);
             //_fileName = name;
-            _filePath = "E:\\Excel\\BudgetExcel\\Budget.xls";
+            //_filePath = "E:\\Excel\\BudgetExcel\\Budget.xls";
 
             //xlWorkBook = xlApp.Workbooks.Open(_filePath, misValue, false, Excel.XlFileFormat.xlWorkbookNormal, 
             //                                    misValue, misValue, true,misValue, misValue, true,
@@ -106,7 +106,7 @@ namespace BudgetExcel
             misValue = System.Reflection.Missing.Value;
             xlWorkBook = xlApp.Workbooks.Add(misValue);
 
-            _filePath = "E:\\Excel\\BudgetExcel\\Budget.xls";
+            //_filePath = "E:\\Excel\\BudgetExcel\\Budget.xls";
             
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
             _RowIndex = 1;
