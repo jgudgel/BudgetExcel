@@ -11,3 +11,10 @@ E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\obj\Debug\BudgetExcel.pdb
 E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\bin\Debug\BudgetExcel.exe
 E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\bin\Debug\BudgetExcel.pdb
 E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\obj\Debug\BudgetExcel.csprojResolveAssemblyReference.cache
+C:\Users\jogudgel\Documents\GitHub\BudgetExcel\BudgetExcel\BudgetExcel\bin\Debug\BudgetExcel.exe.config
+C:\Users\jogudgel\Documents\GitHub\BudgetExcel\BudgetExcel\BudgetExcel\obj\Debug\BudgetExcel.csproj.ResolveComReference.cache
+C:\Users\jogudgel\Documents\GitHub\BudgetExcel\BudgetExcel\BudgetExcel\obj\Debug\BudgetExcel.exe
+C:\Users\jogudgel\Documents\GitHub\BudgetExcel\BudgetExcel\BudgetExcel\obj\Debug\BudgetExcel.pdb
+C:\Users\jogudgel\Documents\GitHub\BudgetExcel\BudgetExcel\BudgetExcel\bin\Debug\BudgetExcel.exe
+C:\Users\jogudgel\Documents\GitHub\BudgetExcel\BudgetExcel\BudgetExcel\bin\Debug\BudgetExcel.pdb
+C:\Users\jogudgel\Documents\GitHub\BudgetExcel\BudgetExcel\BudgetExcel\obj\Debug\BudgetExcel.csprojResolveAssemblyReference.cache
