@@ -1,0 +1,14 @@
+D:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\bin\Release\BudgetExcel.exe.config
+D:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\obj\Release\BudgetExcel.csproj.ResolveComReference.cache
+D:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\bin\Release\BudgetExcel.exe
+D:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\bin\Release\BudgetExcel.pdb
+D:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\obj\Release\BudgetExcel.exe
+D:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\obj\Release\BudgetExcel.pdb
+D:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\obj\Release\BudgetExcel.csprojResolveAssemblyReference.cache
+E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\bin\Release\BudgetExcel.exe.config
+E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\obj\Release\BudgetExcel.csproj.ResolveComReference.cache
+E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\obj\Release\BudgetExcel.exe
+E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\obj\Release\BudgetExcel.pdb
+E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\bin\Release\BudgetExcel.exe
+E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\bin\Release\BudgetExcel.pdb
+E:\Excel\BudgetExcel\BudgetExcel\BudgetExcel\obj\Release\BudgetExcel.csprojResolveAssemblyReference.cache
