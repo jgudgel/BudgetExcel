@@ -37,12 +37,21 @@ namespace BudgetExcel
             xlWorkSheet.Cells[_RowIndex, 2] = category;
             xlWorkSheet.Cells[_RowIndex, 3] = value;
 
-            xlWorkBook.Save();
-            //_filePath = "E:\\Excel\\BudgetExcel\\Budget.xls";
-            //xlWorkBook.SaveAs(_filePath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
-            //                    misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
-            //                    misValue, misValue, misValue, misValue);
-
+            try
+            {
+                //xlWorkBook.Save();
+                //_filePath = "E:\\Excel\\BudgetExcel\\Budget.xls";
+                xlWorkBook.SaveAs(_myDocPath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
+                                    misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
+                                    misValue, misValue, misValue, misValue);
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+                Console.WriteLine("Error during Save: COM Exception");
+                int i = 0;
+                while (i++ < 20) Console.WriteLine("*");
+                Console.WriteLine("\n\nCannot add entry while Budget.xls is open, please close before continuing...\n");
+            }
         }
 
         public void OpenExcelDoc()
@@ -76,10 +85,17 @@ namespace BudgetExcel
             // Find index of next available cell
             _RowIndex = xlWorkSheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing).Row;
 
-            xlWorkBook.SaveAs(_myDocPath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
-                                misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
-                                misValue, misValue, misValue, misValue);
-            //xlWorkBook.Save();
+            try
+            {
+                xlWorkBook.SaveAs(_myDocPath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
+                                    misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
+                                    misValue, misValue, misValue, misValue);
+                //xlWorkBook.Save();
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+                Console.WriteLine("Error during Save: COM Exception");
+            }
         }
 
         public bool CreateExcelDoc()
@@ -114,11 +130,19 @@ namespace BudgetExcel
             xlWorkSheet.Cells[_RowIndex, 2] = "Category";
             xlWorkSheet.Cells[_RowIndex, 3] = "Payment";
 
-            xlWorkBook.SaveAs(_myDocPath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, 
-                                misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, 
-                                misValue, misValue, misValue, misValue);
+            try
+            {
+                xlWorkBook.SaveAs(_myDocPath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
+                                    misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
+                                    misValue, misValue, misValue, misValue);
+
+                //xlWorkBook.Save();
+            }
+            catch (System.Runtime.InteropServices.COMException)
+            {
+                Console.WriteLine("Error during Save: COM Exception");
+            }
             return true;
-            //xlWorkBook.Save();
         }
 
         public void Close()

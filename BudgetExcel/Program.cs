@@ -15,10 +15,10 @@ namespace BudgetExcel
             double value;
             ExcelWriter ew = null;
 
-            Console.WriteLine("                     Purchase History Beta 1.1");
+            Console.WriteLine("                          Purchase History Beta 1.1");
             do
             {
-                Console.WriteLine(" ---------------------------------------------------------------- ");
+                Console.WriteLine(" -------------------------------------------------------------------------- ");
                 Console.WriteLine("Enter the Purchase Category, e.g. Food, Home, Entertainment, Transportation:");
                 category = Console.ReadLine();
                 Console.WriteLine("Enter the Purchase Value, e.g. 3.99, 8, 750.00:");
