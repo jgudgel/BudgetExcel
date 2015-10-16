@@ -17,9 +17,9 @@ namespace BudgetExcel
         Excel.Worksheet xlWorkSheet;
         object misValue;
         int _RowIndex;
-        //string _filePath = " ";
         string _currentDate = "";
         string _myDocPath = "";
+        
 
         public ExcelWriter()
         {
@@ -29,8 +29,8 @@ namespace BudgetExcel
 
         public void WriteToExcel(string category, double value)
         {
-            //Logs
-            Console.WriteLine("Adding \"" + _currentDate + ", " + category + ", " + value + "\" to " + _myDocPath);
+            // Notify adding tuple
+            Console.WriteLine("Writing \""+_currentDate+", "+category+", "+value+"\" to " + _myDocPath);
 
             _RowIndex++;
             xlWorkSheet.Cells[_RowIndex, 1] = _currentDate;
@@ -39,24 +39,27 @@ namespace BudgetExcel
 
             try
             {
-                //xlWorkBook.Save();
-                //_filePath = "E:\\Excel\\BudgetExcel\\Budget.xls";
                 xlWorkBook.SaveAs(_myDocPath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
                                     misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
                                     misValue, misValue, misValue, misValue);
             }
             catch (System.Runtime.InteropServices.COMException)
             {
-                Console.WriteLine("Error during Save: COM Exception");
+                Console.WriteLine("Error during Save: COM Exception\n");
                 int i = 0;
                 while (i++ < 20) Console.WriteLine("*");
-                Console.WriteLine("\n\nCannot add entry while Budget.xls is open, please close before continuing...\n");
+                Console.WriteLine("\n\nCannot start program while while Budget.xls is open," + 
+                   "\nplease close Excel windows before restarting this app...\n"+
+                   "Press any key to close this app.");
+                Console.ReadLine();
+                this.Close();
+                System.Environment.Exit(0);
             }
         }
 
         public void OpenExcelDoc()
         {
-            // Logs
+            // Notify opening doc
             Console.WriteLine("Opening Budget.xls...");
             if (xlApp == null)
             {
@@ -70,46 +73,43 @@ namespace BudgetExcel
 
             xlApp.DisplayAlerts = false;
 
-            misValue = System.Reflection.Missing.Value;
-            xlWorkBook = xlApp.Workbooks.Add(misValue);
-            //_fileName = name;
-            //_filePath = "E:\\Excel\\BudgetExcel\\Budget.xls";
+            // Handles Marshal exception with unhandled COM objects
+            var tmp = xlApp.Workbooks;
 
-            //xlWorkBook = xlApp.Workbooks.Open(_filePath, misValue, false, Excel.XlFileFormat.xlWorkbookNormal, 
-            //                                    misValue, misValue, true,misValue, misValue, true,
-            //                                    misValue, misValue, misValue, misValue, misValue);
-            xlWorkBook = xlApp.Workbooks.Open(_myDocPath);
+            misValue = System.Reflection.Missing.Value;
+            //xlWorkBook = tmp.Add(misValue);
+
+            xlWorkBook = tmp.Open(_myDocPath);
 
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
             // Find index of next available cell
             _RowIndex = xlWorkSheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing).Row;
 
-            try
+            /*try
             {
                 xlWorkBook.SaveAs(_myDocPath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
                                     misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
                                     misValue, misValue, misValue, misValue);
-                //xlWorkBook.Save();
             }
             catch (System.Runtime.InteropServices.COMException)
             {
                 Console.WriteLine("Error during Save: COM Exception");
-            }
+            }*/
         }
 
         public bool CreateExcelDoc()
         {
-            //check if file does not exists
+            // Notify checking if creating doc
             Console.WriteLine("Checking if Budget.xls Exists...");
-            if (System.IO.File.Exists(_myDocPath))//"E:\\Excel\\BudgetExcel\\Budget.xls"
+            if (System.IO.File.Exists(_myDocPath))
             {
                 Console.WriteLine("Confirmed...");
                 return false;
             }
 
 
-            // Logs
+            // Notify creating doc
             Console.WriteLine("Does not exist... Creating Budget.xls...");
 
             xlApp = new Microsoft.Office.Interop.Excel.Application();
@@ -119,24 +119,23 @@ namespace BudgetExcel
                 return false;
             }
 
+            //var tmp = xlApp.Workbooks;
+            xlApp.DisplayAlerts = false;
+
             misValue = System.Reflection.Missing.Value;
             xlWorkBook = xlApp.Workbooks.Add(misValue);
-
-            //_filePath = "E:\\Excel\\BudgetExcel\\Budget.xls";
             
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
             _RowIndex = 1;
             xlWorkSheet.Cells[_RowIndex, 1] = "Date";
             xlWorkSheet.Cells[_RowIndex, 2] = "Category";
-            xlWorkSheet.Cells[_RowIndex, 3] = "Payment";
+            xlWorkSheet.Cells[_RowIndex, 3] = "Value";
 
             try
             {
                 xlWorkBook.SaveAs(_myDocPath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
                                     misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
                                     misValue, misValue, misValue, misValue);
-
-                //xlWorkBook.Save();
             }
             catch (System.Runtime.InteropServices.COMException)
             {
@@ -149,6 +148,7 @@ namespace BudgetExcel
         {
             xlWorkBook.Close(true, misValue, misValue);
             xlApp.Quit();
+
 
             releaseObject(xlWorkSheet);
             releaseObject(xlWorkBook);
@@ -165,7 +165,7 @@ namespace BudgetExcel
             catch (Exception ex)
             {
                 obj = null;
-                Console.WriteLine("Exception Occured while releasing object " + ex.ToString());
+                Console.WriteLine("Exception Occurred while releasing object " + ex.ToString());
             }
             finally
             {
