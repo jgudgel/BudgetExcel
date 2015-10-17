@@ -45,15 +45,7 @@ namespace BudgetExcel
             }
             catch (System.Runtime.InteropServices.COMException)
             {
-                Console.WriteLine("Error during Save: COM Exception\n");
-                int i = 0;
-                while (i++ < 20) Console.WriteLine("*");
-                Console.WriteLine("\n\nCannot start program while while Budget.xls is open," + 
-                   "\nplease close Excel windows before restarting this app...\n"+
-                   "Press any key to close this app.");
-                Console.ReadLine();
-                this.Close();
-                System.Environment.Exit(0);
+                PrintExcelOpenError();
             }
         }
 
@@ -80,6 +72,8 @@ namespace BudgetExcel
             //xlWorkBook = tmp.Add(misValue);
 
             xlWorkBook = tmp.Open(_myDocPath);
+            //xlWorkBook = tmp.Open(_myDocPath, 0, true, 5, "", "", true, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "\t", false, false, 0, true, 1, 0);
+
 
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
@@ -131,7 +125,7 @@ namespace BudgetExcel
             xlWorkSheet.Cells[_RowIndex, 2] = "Category";
             xlWorkSheet.Cells[_RowIndex, 3] = "Value";
 
-            try
+            /*try
             {
                 xlWorkBook.SaveAs(_myDocPath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
                                     misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue,
@@ -140,16 +134,15 @@ namespace BudgetExcel
             catch (System.Runtime.InteropServices.COMException)
             {
                 Console.WriteLine("Error during Save: COM Exception");
-            }
+            }*/
             return true;
         }
 
         public void Close()
         {
             xlWorkBook.Close(true, misValue, misValue);
+
             xlApp.Quit();
-
-
             releaseObject(xlWorkSheet);
             releaseObject(xlWorkBook);
             releaseObject(xlApp);
@@ -171,6 +164,42 @@ namespace BudgetExcel
             {
                 GC.Collect();
             }
+        }
+
+        public void PrintExcelOpenError()
+        {
+            Console.WriteLine("Error during Save: COM Exception\n");
+            int i = 0;
+            while (i++ < 15)
+            {
+                Console.WriteLine("*");
+            }
+            Console.WriteLine("\n\nCannot start program while Budget.xls is open...\n" +
+                                "Press any key to close this app.");
+            Console.ReadKey();
+            if (IsOpened(xlWorkBook, xlApp))
+            {
+                xlWorkBook.Close(true, misValue, misValue);
+            }
+            xlApp.Quit();
+            releaseObject(xlWorkSheet);
+            releaseObject(xlWorkBook);
+            releaseObject(xlApp);
+            System.Environment.Exit(0);
+        }
+
+        public bool IsOpened(Excel.Workbook wkBook, Excel.Application xlApp)
+        {
+            bool isOpened = true;
+            try
+            {
+                xlApp.Workbooks.get_Item(wkBook);
+            }
+            catch (Exception)
+            {
+                isOpened = false;
+            }
+            return isOpened;
         }
     }
 }

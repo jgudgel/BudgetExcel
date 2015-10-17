@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Diagnostics;
 
 namespace BudgetExcel
 {
@@ -11,6 +12,7 @@ namespace BudgetExcel
     {
         static void Main(string[] args)
         {
+            string fileName = "Budget";
             string category = "";
             double value = 0;
             ExcelWriter ew = new ExcelWriter();
@@ -23,7 +25,7 @@ namespace BudgetExcel
                 Console.WriteLine(" -------------------------------------------------------------------------- ");                
                 Console.WriteLine("Enter the Purchase Category, e.g. Food, Home, Entertainment, Transportation:");
                 category = Console.ReadLine();
-                Console.WriteLine("Enter the Purchase Value, e.g. 3.99, 8, 750.00:");
+                Console.WriteLine("\nEnter the Purchase Value, e.g. 3.99, 8, 750.00:");
 
 
                 do
@@ -35,20 +37,15 @@ namespace BudgetExcel
                     }
                     catch (FormatException)
                     {
-                        int i = 0;
-                        while (i++ < 10)
-                        {
-                            Console.WriteLine("*");    
-                        } 
-                        Console.WriteLine("\nError: Non-number Input ... Please input a number value");
+                        PrintNumInputError();
                         fe = true;
                     }
                 } while (fe == true);
 
 
                 Console.WriteLine();
-                
 
+                KillSpecificExcelFileProcess(fileName);
                 if (!ew.CreateExcelDoc())
                 {
                     ew.OpenExcelDoc();
@@ -60,6 +57,30 @@ namespace BudgetExcel
                             
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
             ew.Close();
+        }
+
+        static void PrintNumInputError()
+        {
+            Console.WriteLine();
+            int i = 0;
+            while (i++ < 10)
+            {
+                Console.WriteLine("*");    
+            } 
+            Console.WriteLine("\nError: Non-number Input ... Please input a number value");
+        }
+
+        static void KillSpecificExcelFileProcess(string fileName)
+        {
+            var processes = from p in Process.GetProcessesByName("EXCEL")
+                            select p;
+
+            foreach (var process in processes)
+            {
+                if (process.MainWindowTitle.Contains(fileName))
+                    process.Kill();
+                //Console.WriteLine(process.MainWindowTitle);
+            }
         }
     }
 }
