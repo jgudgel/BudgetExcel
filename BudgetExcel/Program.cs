@@ -14,9 +14,10 @@ namespace BudgetExcel
         {
             string fileName = "Budget";
             string category = "";
+            string date = "";
             double value = 0;
-            ExcelWriter ew = new ExcelWriter();
             bool fe = false;
+            ExcelWriter ew = new ExcelWriter();
 
             Console.WriteLine("                          Purchase Logger Beta 1.1");
             do
@@ -25,9 +26,8 @@ namespace BudgetExcel
                 Console.WriteLine(" -------------------------------------------------------------------------- ");                
                 Console.WriteLine("Enter the Purchase Category, e.g. Food, Home, Entertainment, Transportation:");
                 category = Console.ReadLine();
+
                 Console.WriteLine("\nEnter the Purchase Value, e.g. 3.99, 8, 750.00:");
-
-
                 do
                 {
                     try
@@ -42,15 +42,17 @@ namespace BudgetExcel
                     }
                 } while (fe == true);
 
-
-                Console.WriteLine();
+                Console.WriteLine("\nEnter the Date of the purchase in the following format: MMDDYYYY" +
+                                    "E.g. 04211993 or 10182015 (leave blank to use current date)");
+                date = Console.ReadLine();
+                if(date == "") date = DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Year.ToString();
 
                 KillSpecificExcelFileProcess(fileName);
                 if (!ew.CreateExcelDoc())
                 {
                     ew.OpenExcelDoc();
                 }
-                ew.WriteToExcel(category, value);
+                ew.WriteToExcel(category, value, date);
 
 
                 Console.WriteLine("\nPress \"Enter\" to add another entry or \"Esc\" to end the Application\n");

@@ -27,13 +27,13 @@ namespace BudgetExcel
             _myDocPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Budget.xls";
         }
 
-        public void WriteToExcel(string category, double value)
+        public void WriteToExcel(string category, double value, string date)
         {
             // Notify adding tuple
             Console.WriteLine("Writing \""+_currentDate+", "+category+", "+value+"\" to " + _myDocPath);
 
             _RowIndex++;
-            xlWorkSheet.Cells[_RowIndex, 1] = _currentDate;
+            xlWorkSheet.Cells[_RowIndex, 1] = date;
             xlWorkSheet.Cells[_RowIndex, 2] = category;
             xlWorkSheet.Cells[_RowIndex, 3] = value;
 
