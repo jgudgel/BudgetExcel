@@ -32,6 +32,7 @@ namespace BudgetExcel
             // Notify adding tuple
             Console.WriteLine("Writing \""+_currentDate+", "+category+", "+value+"\" to " + _myDocPath);
 
+            _RowIndex = xlWorkSheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing).Row;
             _RowIndex++;
             xlWorkSheet.Cells[_RowIndex, 1] = date;
             xlWorkSheet.Cells[_RowIndex, 2] = category;
@@ -53,6 +54,7 @@ namespace BudgetExcel
         {
             // Notify opening doc
             Console.WriteLine("Opening Budget.xls...");
+            //if (xlApp != null) return;
             if (xlApp == null)
             {
                 xlApp = new Microsoft.Office.Interop.Excel.Application();
@@ -78,7 +80,7 @@ namespace BudgetExcel
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
             // Find index of next available cell
-            _RowIndex = xlWorkSheet.Cells.SpecialCells(Excel.XlCellType.xlCellTypeLastCell, Type.Missing).Row;
+            
 
             /*try
             {
@@ -200,6 +202,11 @@ namespace BudgetExcel
                 isOpened = false;
             }
             return isOpened;
+        }
+
+        public bool getXlApp()
+        {
+            return (xlApp==null)? true: false; 
         }
     }
 }

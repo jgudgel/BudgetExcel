@@ -23,7 +23,7 @@ namespace BudgetExcel
             do
             {
 
-                Console.WriteLine(" -------------------------------------------------------------------------- ");                
+                Console.WriteLine(" -------------------------------------------------------------------------- ");
                 Console.WriteLine("Enter the Purchase Category, e.g. Food, Home, Entertainment, Transportation:");
                 category = Console.ReadLine();
 
@@ -42,12 +42,14 @@ namespace BudgetExcel
                     }
                 } while (fe == true);
 
-                Console.WriteLine("\nEnter the Date of the purchase in the following format: MMDDYYYY" +
-                                    "E.g. 04211993 or 10182015 (leave blank to use current date)");
+                Console.WriteLine("\nEnter the Date of the purchase in the following format: YYYYMMDD\n" +
+                                    "    E.g. 20151018 or 19930421 (leave blank to use current date)");
                 date = Console.ReadLine();
-                if(date == "") date = DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString() + DateTime.Now.Year.ToString();
+                if (date == "") date = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + 
+                                            DateTime.Now.Day.ToString();
 
-                KillSpecificExcelFileProcess(fileName);
+
+                if (ew.getXlApp()) { KillSpecificExcelFileProcess(fileName); }
                 if (!ew.CreateExcelDoc())
                 {
                     ew.OpenExcelDoc();
@@ -56,8 +58,8 @@ namespace BudgetExcel
 
 
                 Console.WriteLine("\nPress \"Enter\" to add another entry or \"Esc\" to end the Application\n");
-                            
-            } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+
+            } while (Console.ReadKey(true).Key != ConsoleKey.Escape); 
             ew.Close();
         }
 
